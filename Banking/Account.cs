@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Banking
 {
@@ -26,43 +24,56 @@ namespace Banking
             Console.WriteLine("User: " + NameOne + ", Balance: $" + BalOne);
         }
 
-        //puts the deposit into the account and displays the account value
+        //puts the deposit into the selected account
         public void deposit(int DepoAmount)
         {
-            //DepoAmount = 100;
+
             BalOne = BalOne + DepoAmount;
         }
 
-        //
+        //withdraws from the selected account
         public bool withdraw(int WithAmount)
         {
             if (BalOne - WithAmount >= 0)
             {
+
                 BalOne = BalOne - WithAmount;
-                Console.WriteLine("Withdrawing money...");
-                Console.WriteLine("Success, new status: ");
                 return true;
             }
             else
             {
-                Console.WriteLine("Withdrawing money...");
-                Console.WriteLine("Insufficient funds, current status: ");
                 return false;
             }
         }
+        //transfers from A2 to A1 
         public bool transferA2(int amount, Account a2, Account a1)
         {
-            Console.WriteLine("Transferring $" +amount+" from " + a2.NameOne + " to " + a1.NameOne + ".");
-            a2.deposit(amount);
-            a1.withdraw(amount);
-            return true;
+            if (a2.BalOne - amount >= 0)
+            {
+                a1.withdraw(amount);
+                a2.deposit(amount);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
+        //transfers from A1 to A2 
         public bool transferA1(int amount, Account a1, Account a2)
         {
-            Console.WriteLine("Transferring $" + amount + " from " + a1.NameOne + " to " + a2.NameOne + ".");
-            a1.deposit(amount);
-            a2.withdraw(amount);
-            return true;
+            if (a1.BalOne - amount >= 0)
+            {
+                a2.withdraw(amount);
+                a1.deposit(amount);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }
